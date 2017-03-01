@@ -27,10 +27,13 @@ public class GTVGFilter implements Filter {
     private static void addUserToSession(final HttpServletRequest request) {
         // Simulate a real user session by adding a user object
         request.getSession(true).setAttribute("user", new User("John", "Apricot", "Antarctica", null));
+        //request.getSession(true).setAttribute("user", "John");
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        addUserToSession((HttpServletRequest) servletRequest);
+
         if (!process((HttpServletRequest) servletRequest, (HttpServletResponse) servletResponse)) {
             filterChain.doFilter(servletRequest, servletResponse);
         }
